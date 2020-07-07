@@ -11,8 +11,9 @@
 #import "AppDelegate.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "InstaPostTableViewCell.h"
 
-@interface FeedViewController ()
+@interface FeedViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -40,12 +41,15 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    myDelegate.window.alpha = 0;
+    myDelegate.window.alpha = 0.50;
     myDelegate.window.rootViewController = loginViewController;
     
     [UIView animateWithDuration:3 animations:^{
         myDelegate.window.alpha = 1;
     }];
+}
+- (IBAction)didTapCompose:(id)sender {
+     [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
 }
 
 /*
@@ -57,13 +61,15 @@
     // Pass the selected object to the new view controller.
 }
 */
-//
-//- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    <#code#>
-//}
-//
-//- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    <#code#>
-//}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
 
 @end

@@ -8,6 +8,8 @@
 
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
+#import "SceneDelegate.h"
+#import "LoginViewController.h"
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
@@ -22,9 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-- (IBAction)didTapLogin:(id)sender {
-     [self performSegueWithIdentifier:@"loginSegue" sender:nil];
-}
+
 
 
 - (IBAction)didTapScreen:(id)sender {
@@ -91,7 +91,17 @@
             }
         }else{
             NSLog(@"User registered succesfully.");
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            
+            SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            myDelegate.window.alpha = 0;
+            myDelegate.window.rootViewController = loginViewController;
+            
+            [UIView animateWithDuration:3 animations:^{
+                myDelegate.window.alpha = 1;
+            }];
         }
     }];
 }
