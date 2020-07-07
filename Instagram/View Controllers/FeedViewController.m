@@ -21,10 +21,16 @@
 }
 - (IBAction)didTapLogout:(id)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if(error ==nil){
         NSLog(@"Successfully logged out user.");
         [self performSegueWithIdentifier:@"toLoginSegue" sender:nil];
-        
+       // SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+        }
+        else{
+            NSLog(@"Error loggin out user.");
+        }
     }];
+    
     
 }
 

@@ -207,7 +207,7 @@
         <!--Feed-->
         <scene sceneID="SD2-vu-S7a">
             <objects>
-                <viewController id="fbe-LR-K9w" customClass="FeedViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="fbe-LR-K9w" customClass="FeedViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4cy-4A-pi3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -244,7 +244,7 @@
         <!--Navigation Controller-->
         <scene sceneID="pNH-hH-HeH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LIJ-SM-8r9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AuthenticatedViewController" automaticallyAdjustsScrollViewInsets="NO" id="LIJ-SM-8r9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ire-aa-Vkh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -261,6 +261,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="BCK-8x-PlB"/>
         <segue reference="dO6-jJ-1xI"/>
     </inferredMetricsTieBreakers>
     <resources>
