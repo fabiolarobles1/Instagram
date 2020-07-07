@@ -26,6 +26,9 @@
     [self performSegueWithIdentifier:@"toSignUpSegue" sender:nil];
 }
 
+- (IBAction)didTapScreen:(id)sender {
+     [self.view endEditing:YES];
+}
 
 - (IBAction)didTapLoginButton:(id)sender {
     if (!self.usernameField.hasText || !self.passwordField.hasText ){

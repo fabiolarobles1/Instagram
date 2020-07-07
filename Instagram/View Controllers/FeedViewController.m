@@ -13,8 +13,9 @@
 #import "LoginViewController.h"
 #import "InstaPostTableViewCell.h"
 
-@interface FeedViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface FeedViewController () <UITableViewDelegate, UITableViewDataSource >
 
+@property (strong, nonatomic) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -24,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 - (IBAction)didTapLogout:(id)sender {
     
@@ -44,10 +48,11 @@
     myDelegate.window.alpha = 0.50;
     myDelegate.window.rootViewController = loginViewController;
     
-    [UIView animateWithDuration:3 animations:^{
+    [UIView animateWithDuration:2 animations:^{
         myDelegate.window.alpha = 1;
     }];
 }
+
 - (IBAction)didTapCompose:(id)sender {
      [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
 }
@@ -69,7 +74,8 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    NSLog(@"%ld", self.posts.count);
+    return self.posts.count;
 }
 
 @end
