@@ -19,6 +19,7 @@
 		EBE40E8524B3C87E00E24C06 /* InstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E8424B3C87E00E24C06 /* InstagramTests.m */; };
 		EBE40E9024B3C87E00E24C06 /* InstagramUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E8F24B3C87E00E24C06 /* InstagramUITests.m */; };
 		EBE40EA024B4044400E24C06 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E9F24B4044400E24C06 /* SignUpViewController.m */; };
+		EBE40EA324B42C5C00E24C06 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40EA224B42C5C00E24C06 /* FeedViewController.m */; };
 		FC25785D62A0BE18E9367A0F /* Pods_Instagram_InstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50AF3BC6560145A4640DEE9 /* Pods_Instagram_InstagramUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,8 @@
 		EBE40E9124B3C87E00E24C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBE40E9E24B4044400E24C06 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		EBE40E9F24B4044400E24C06 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		EBE40EA124B42C5C00E24C06 /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		EBE40EA224B42C5C00E24C06 /* FeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,8 @@
 				EBE40E6F24B3C87D00E24C06 /* LoginViewController.m */,
 				EBE40E9E24B4044400E24C06 /* SignUpViewController.h */,
 				EBE40E9F24B4044400E24C06 /* SignUpViewController.m */,
+				EBE40EA124B42C5C00E24C06 /* FeedViewController.h */,
+				EBE40EA224B42C5C00E24C06 /* FeedViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				EBE40EA024B4044400E24C06 /* SignUpViewController.m in Sources */,
 				EBE40E6A24B3C87D00E24C06 /* AppDelegate.m in Sources */,
 				EBE40E7B24B3C87E00E24C06 /* main.m in Sources */,
+				EBE40EA324B42C5C00E24C06 /* FeedViewController.m in Sources */,
 				EBE40E6D24B3C87D00E24C06 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
