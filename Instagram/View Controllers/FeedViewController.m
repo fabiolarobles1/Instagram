@@ -12,6 +12,7 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "InstaPostTableViewCell.h"
+#import "Post.h"
 
 @interface FeedViewController () <UITableViewDelegate, UITableViewDataSource >
 
@@ -25,9 +26,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    // construct query
+    PFQuery *postQuery = [Post query];
+    [postQuery orderByDescending:@"createdAt"];
+    [postQuery includeKey:@"author"];
+    postQuery.limit = 20;
+
+    // fetch data asynchronously
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            self.posts= [posts mutableCopy];
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
+    
 }
 - (IBAction)didTapLogout:(id)sender {
     
@@ -69,12 +87,20 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
+    Post *post = self.posts[indexPath.row];
     
+  //[Post fetchIfNeeded];
+    [cell setPost:post];
+    cell.captionLabel.text = post.caption;
+    cell.usernameLabel.text = post.author.username;
+  
+
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%ld", self.posts.count);
+    NSLog(@"Number of posts: %ld", self.posts.count);
+    
     return self.posts.count;
 }
 

@@ -195,16 +195,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z4n-nR-MUO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="500" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z4n-nR-MUO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InstaPostCell" rowHeight="536" id="c9J-nN-F0t" customClass="InstaPostTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="536"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InstaPostCell" rowHeight="610" id="c9J-nN-F0t" customClass="InstaPostTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="610"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c9J-nN-F0t" id="DyT-WR-rTp">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="536"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="610"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z9l-U0-43g">
@@ -226,7 +225,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="imf-cK-G9A">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="imf-cK-G9A" customClass="PFImageView">
                                                     <rect key="frame" x="22" y="66" width="370" height="370"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="imf-cK-G9A" secondAttribute="height" multiplier="1:1" id="cBh-BF-S2h"/>
@@ -235,6 +234,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="imf-cK-G9A" firstAttribute="top" secondItem="Z9l-U0-43g" secondAttribute="bottom" constant="10" id="Eni-ec-JVU"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gwy-pt-jnf" secondAttribute="bottom" constant="10" id="Hyh-vY-7Td"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="gwy-pt-jnf" secondAttribute="trailing" constant="25" id="MQq-dH-aLv"/>
                                                 <constraint firstItem="7En-Sh-RBc" firstAttribute="centerY" secondItem="Z9l-U0-43g" secondAttribute="centerY" id="Rlc-xA-GwD"/>
                                                 <constraint firstItem="7En-Sh-RBc" firstAttribute="leading" secondItem="Z9l-U0-43g" secondAttribute="trailing" constant="30" id="UAT-uq-Ntl"/>
@@ -251,7 +251,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="captionLabel" destination="gwy-pt-jnf" id="vaS-SW-nqx"/>
-                                            <outlet property="postImageView" destination="imf-cK-G9A" id="kKt-WT-euS"/>
+                                            <outlet property="photoImageView" destination="imf-cK-G9A" id="kKt-WT-euS"/>
                                             <outlet property="userImageView" destination="Z9l-U0-43g" id="7Nd-9E-llh"/>
                                             <outlet property="usernameLabel" destination="7En-Sh-RBc" id="gD2-oW-9g8"/>
                                         </connections>
@@ -260,6 +260,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Z4n-nR-MUO" firstAttribute="top" secondItem="4cy-4A-pi3" secondAttribute="top" id="Fcx-wy-XEu"/>
+                            <constraint firstAttribute="bottom" secondItem="Z4n-nR-MUO" secondAttribute="bottom" id="GU3-Gc-mKA"/>
+                            <constraint firstItem="Z4n-nR-MUO" firstAttribute="leading" secondItem="E9p-Zk-NXt" secondAttribute="leading" id="izl-HL-j2o"/>
+                            <constraint firstItem="Z4n-nR-MUO" firstAttribute="trailing" secondItem="E9p-Zk-NXt" secondAttribute="trailing" id="nqs-6g-8ab"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="E9p-Zk-NXt"/>
                     </view>
                     <navigationItem key="navigationItem" title="Feed" id="vpR-Xz-gGV">
@@ -281,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJC-Az-AOe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042" y="877"/>
+            <point key="canvasLocation" x="1039.1304347826087" y="876.5625"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="6GS-60-F39">
