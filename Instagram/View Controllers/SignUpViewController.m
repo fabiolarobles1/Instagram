@@ -45,7 +45,6 @@
     }else{
         [self registerUser];
     }
-        
 }
 
 
@@ -62,8 +61,8 @@
     //call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error !=nil){
-            NSLog(@"Error: %@", error.description);
-            NSLog(@"CODE: %ld", error.code);
+            NSLog(@"Sign up user error: %@", error.description);
+          
             if(error.code == 125){
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Email" message:@"Email address format is invalid." preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
