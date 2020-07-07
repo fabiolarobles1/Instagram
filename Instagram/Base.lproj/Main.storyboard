@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LwW-xZ-0bw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,8 +10,8 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -43,6 +43,9 @@
                                 <rect key="frame" x="175.5" y="555" width="63" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="onTapSignUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dVC-Zq-Aid"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -66,12 +69,139 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="i8T-fd-UbB"/>
+                    <connections>
+                        <segue destination="lsG-k1-C3f" kind="presentation" identifier="signUpSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="eP9-h3-fEE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="118.52678571428571"/>
+        </scene>
+        <!--Sign Up-->
+        <scene sceneID="b6D-PS-4Dl">
+            <objects>
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="4na-HK-9C8" customClass="SignUpViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFill" id="GJe-ro-tPE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-A6-C3k">
+                                <rect key="frame" x="30" y="343" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYX-G7-h4B">
+                                <rect key="frame" x="30" y="387" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2OZ-gA-K4d">
+                                <rect key="frame" x="30" y="431" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4W-8z-zay">
+                                <rect key="frame" x="115.5" y="178" width="183" height="80"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS9-2x-mY6">
+                                <rect key="frame" x="182" y="485" width="50" height="30"/>
+                                <state key="normal" title="SignUp"/>
+                                <connections>
+                                    <action selector="didTapSignUp:" destination="4na-HK-9C8" eventType="touchUpInside" id="V9V-t1-NTs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="mYX-G7-h4B" firstAttribute="centerX" secondItem="GJe-ro-tPE" secondAttribute="centerX" id="5fE-g4-JuU"/>
+                            <constraint firstItem="2OZ-gA-K4d" firstAttribute="leading" secondItem="Ibu-h5-tug" secondAttribute="leading" constant="30" id="BTh-Mw-TpB"/>
+                            <constraint firstItem="i4W-8z-zay" firstAttribute="centerX" secondItem="GJe-ro-tPE" secondAttribute="centerX" id="JbV-XF-1c2"/>
+                            <constraint firstItem="mYX-G7-h4B" firstAttribute="top" secondItem="Abf-A6-C3k" secondAttribute="bottom" constant="10" id="LEE-ut-BGQ"/>
+                            <constraint firstItem="Ibu-h5-tug" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mYX-G7-h4B" secondAttribute="trailing" constant="30" id="Ro2-OX-rrp"/>
+                            <constraint firstItem="WS9-2x-mY6" firstAttribute="top" secondItem="2OZ-gA-K4d" secondAttribute="bottom" constant="20" id="Sb5-Am-WaV"/>
+                            <constraint firstItem="2OZ-gA-K4d" firstAttribute="centerY" secondItem="GJe-ro-tPE" secondAttribute="centerY" id="bfw-xM-w7B"/>
+                            <constraint firstItem="Abf-A6-C3k" firstAttribute="leading" secondItem="Ibu-h5-tug" secondAttribute="leading" constant="30" id="eUT-wx-UWF"/>
+                            <constraint firstItem="Ibu-h5-tug" firstAttribute="trailing" secondItem="Abf-A6-C3k" secondAttribute="trailing" constant="30" id="fBf-jG-FUb"/>
+                            <constraint firstItem="Ibu-h5-tug" firstAttribute="trailing" secondItem="2OZ-gA-K4d" secondAttribute="trailing" constant="30" id="kJt-u5-Vfu"/>
+                            <constraint firstItem="WS9-2x-mY6" firstAttribute="centerX" secondItem="GJe-ro-tPE" secondAttribute="centerX" id="kRu-Uv-Umd"/>
+                            <constraint firstItem="i4W-8z-zay" firstAttribute="top" secondItem="GJe-ro-tPE" secondAttribute="topMargin" constant="90" id="q3T-bZ-wUU"/>
+                            <constraint firstItem="mYX-G7-h4B" firstAttribute="leading" secondItem="Ibu-h5-tug" secondAttribute="leading" constant="30" id="sxZ-Hg-z8S"/>
+                            <constraint firstItem="2OZ-gA-K4d" firstAttribute="top" secondItem="mYX-G7-h4B" secondAttribute="bottom" constant="10" id="tB4-9r-Xyu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ibu-h5-tug"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Wie-BT-h6u" appends="YES" id="gqH-R0-46E"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="Sign Up" id="WgB-C6-GSL">
+                        <barButtonItem key="leftBarButtonItem" title="Login" id="oXB-ux-L1d">
+                            <connections>
+                                <action selector="didTapLogin:" destination="4na-HK-9C8" id="ebL-Og-Vi6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="emailField" destination="Abf-A6-C3k" id="L5s-NA-bbC"/>
+                        <outlet property="passwordField" destination="2OZ-gA-K4d" id="afH-pA-rcL"/>
+                        <outlet property="usernameField" destination="mYX-G7-h4B" id="ZFX-Aa-bxa"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="loginSegue" id="uTr-GK-BhJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k1m-kg-b6D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Wie-BT-h6u">
+                    <connections>
+                        <action selector="didTapScreen:" destination="4na-HK-9C8" id="lwc-Zu-3Lz"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="270" y="847"/>
+        </scene>
+        <!--SignUp-->
+        <scene sceneID="oLY-VP-VQG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lsG-k1-C3f" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="SignUp" id="pwE-ca-qjV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Khv-Yt-yuA">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4na-HK-9C8" kind="relationship" relationship="rootViewController" id="1hx-Ov-gEM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UsC-YV-7zl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2122" y="119"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cP1-Kz-tfz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LwW-xZ-0bw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4vb-4e-ZSa">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="W4n-zZ-tQg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6cX-cr-dDz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="118.52678571428571"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="uTr-GK-BhJ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Icon-61" width="60" height="60"/>
     </resources>

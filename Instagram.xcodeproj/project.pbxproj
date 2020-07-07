@@ -18,6 +18,7 @@
 		EBE40E7B24B3C87E00E24C06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E7A24B3C87E00E24C06 /* main.m */; };
 		EBE40E8524B3C87E00E24C06 /* InstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E8424B3C87E00E24C06 /* InstagramTests.m */; };
 		EBE40E9024B3C87E00E24C06 /* InstagramUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E8F24B3C87E00E24C06 /* InstagramUITests.m */; };
+		EBE40EA024B4044400E24C06 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E9F24B4044400E24C06 /* SignUpViewController.m */; };
 		FC25785D62A0BE18E9367A0F /* Pods_Instagram_InstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50AF3BC6560145A4640DEE9 /* Pods_Instagram_InstagramUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,8 @@
 		EBE40E8B24B3C87E00E24C06 /* InstagramUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstagramUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE40E8F24B3C87E00E24C06 /* InstagramUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramUITests.m; sourceTree = "<group>"; };
 		EBE40E9124B3C87E00E24C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBE40E9E24B4044400E24C06 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		EBE40E9F24B4044400E24C06 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,12 +147,11 @@
 		EBE40E6724B3C87D00E24C06 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				EBE40E9D24B4042000E24C06 /* View Controllers */,
 				EBE40E6824B3C87D00E24C06 /* AppDelegate.h */,
 				EBE40E6924B3C87D00E24C06 /* AppDelegate.m */,
 				EBE40E6B24B3C87D00E24C06 /* SceneDelegate.h */,
 				EBE40E6C24B3C87D00E24C06 /* SceneDelegate.m */,
-				EBE40E6E24B3C87D00E24C06 /* LoginViewController.h */,
-				EBE40E6F24B3C87D00E24C06 /* LoginViewController.m */,
 				EBE40E7124B3C87D00E24C06 /* Main.storyboard */,
 				EBE40E7424B3C87E00E24C06 /* Assets.xcassets */,
 				EBE40E7624B3C87E00E24C06 /* LaunchScreen.storyboard */,
@@ -175,6 +177,17 @@
 				EBE40E9124B3C87E00E24C06 /* Info.plist */,
 			);
 			path = InstagramUITests;
+			sourceTree = "<group>";
+		};
+		EBE40E9D24B4042000E24C06 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EBE40E6E24B3C87D00E24C06 /* LoginViewController.h */,
+				EBE40E6F24B3C87D00E24C06 /* LoginViewController.m */,
+				EBE40E9E24B4044400E24C06 /* SignUpViewController.h */,
+				EBE40E9F24B4044400E24C06 /* SignUpViewController.m */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE40E7024B3C87D00E24C06 /* LoginViewController.m in Sources */,
+				EBE40EA024B4044400E24C06 /* SignUpViewController.m in Sources */,
 				EBE40E6A24B3C87D00E24C06 /* AppDelegate.m in Sources */,
 				EBE40E7B24B3C87E00E24C06 /* main.m in Sources */,
 				EBE40E6D24B3C87D00E24C06 /* SceneDelegate.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewController ()
 
@@ -19,5 +20,13 @@
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)onTapSignUpButton:(id)sender {
+    
+            [self performSegueWithIdentifier:@"signUpSegue" sender:nil];
+        
+    
+    
+    
+}
 
 @end
