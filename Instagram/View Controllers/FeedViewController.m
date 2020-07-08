@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -28,6 +29,15 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    [self fetchPosts];
+    
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+-(void)fetchPosts{
     
     // construct query
     PFQuery *postQuery = [Post query];
@@ -40,13 +50,40 @@
         if (posts) {
             self.posts= [posts mutableCopy];
                 [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
             } else {
                 NSLog(@"%@", error.localizedDescription);
         }
     }];
-    
-    
 }
+
+//-(void) beginRefresh:(UIRefreshControl *) refreshControl{
+//
+//    //Make NSURL Request
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+//                                                                delegate:nil
+//                                                           delegateQueue:[NSOperationQueue mainQueue]];
+//          session.configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+//
+//
+//
+//   // NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//
+//             // ... Use the new data to update the data source ...
+//
+//             // Reload the tableView now that there is new data
+//              [self.tableView reloadData];
+//
+//             // Tell the refreshControl to stop spinning
+//              [refreshControl endRefreshing];
+//
+//          }];
+//      
+//          [task resume];
+//}
+
+
+
 - (IBAction)didTapLogout:(id)sender {
     
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
@@ -71,6 +108,7 @@
     }];
 }
 
+
 - (IBAction)didTapCompose:(id)sender {
      [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
 }
@@ -93,8 +131,7 @@
     [cell setPost:post];
     cell.captionLabel.text = post.caption;
     cell.usernameLabel.text = post.author.username;
-  
-
+    
     return cell;
 }
 

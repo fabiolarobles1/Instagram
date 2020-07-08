@@ -22,14 +22,18 @@
 @implementation ComposeViewController
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-    imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    //  imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+   
+       // imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    
     
     [self presentViewController:imagePickerVC animated:YES completion:nil];
     
@@ -52,7 +56,7 @@
     // Do something with the images (based on your use case)
     
     //ADDING SELECT ORIGINAL OR EDITED
-    self.postImageView.image = [self resizeImage:editedImage withSize:CGSizeMake(960, 1440)];
+    self.postImageView.image = editedImage;//[self resizeImage:editedImage withSize:CGSizeMake(960, 1440)];
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
