@@ -14,6 +14,7 @@
 #import "InstaPostTableViewCell.h"
 #import "Post.h"
 #import "PostDetailsViewController.h"
+#import "InfiniteScrollActivityView.h"
 
 @interface FeedViewController () 
 
@@ -21,23 +22,38 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
-
+@property (assign, nonatomic) int skipcount;
+@property (assign, nonatomic) BOOL reachedEnd;
+@property (strong, nonatomic) InfiniteScrollActivityView *loadingMoreView;
 @end
 
 @implementation FeedViewController
-static int skipcount = 0;
-static BOOL reachedEnd = NO;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.skipcount = 0;
+    self.reachedEnd = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.isMoreDataLoading = NO;
     [self fetchPosts];
     
+    //setting up refresh control
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    // Set up Infinite Scroll loading indicator
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    self.loadingMoreView.hidden = true;
+    [self.tableView addSubview:self.loadingMoreView];
+       
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
+    
 }
 
 
@@ -48,12 +64,10 @@ static BOOL reachedEnd = NO;
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
     postQuery.limit = 20;
-    if(self.isMoreDataLoading && reachedEnd){
-        postQuery.skip = skipcount;
+    if(self.isMoreDataLoading && self.reachedEnd){
+        postQuery.skip = self.skipcount;
     }
     
-   
-
     // fetch data asynchronously
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
         if (posts) {
@@ -64,11 +78,13 @@ static BOOL reachedEnd = NO;
                 self.posts= [posts mutableCopy];
             }
             self.isMoreDataLoading = NO;
-            reachedEnd = NO;
+            self.reachedEnd = NO;
            // [self.posts addObjectsFromArray:posts];
 
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
+            [self.loadingMoreView stopAnimating];
+            
             } else {
                 NSLog(@"%@", error.localizedDescription);
         }
@@ -137,11 +153,16 @@ static BOOL reachedEnd = NO;
                
         // When the user has scrolled past the threshold, start requesting
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-                
-                 //  self.isMoreDataLoading = true;
-            skipcount +=20;
-            reachedEnd = YES;
+            self.skipcount +=20;
+            self.reachedEnd = YES;
             self.isMoreDataLoading = YES;
+
+            // Update position of loadingMoreView, and start loading indicator
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            self.loadingMoreView.frame = frame;
+            [self.loadingMoreView startAnimating];
+            
+            //load more results
             [self fetchPosts];
         }
     }
