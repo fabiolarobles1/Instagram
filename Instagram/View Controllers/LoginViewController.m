@@ -33,7 +33,7 @@
 - (IBAction)didTapLoginButton:(id)sender {
     if (!self.usernameField.hasText || !self.passwordField.hasText ){
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Fields" message:@"Username and password are required to login. Please fill all the information." preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Fields" message:@"Username and password are required to login. Please fill out all the information." preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
         [alert addAction:okAction];
         
@@ -52,7 +52,7 @@
         if(error != nil){
             NSLog(@"User login failed : %@" , error.description);
             if(error.code == 101){
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid username/password" message:@"The username or password do not match. Try Again." preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid username/password" message:@"The username and password do not match. Try Again." preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     self.usernameField.text = @"";
                     self.passwordField.text = @"";
