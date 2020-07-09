@@ -25,16 +25,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"Post: %@", self.post);
+    
     self.postImageView.file = self.post[@"image"];
     [self.postImageView loadInBackground];
     
     self.captionLabel.text = self.post.caption;
     self.usernameLabel.text = self.post.author.username;
-   // self.timeStampLabel.text =;
     
     NSDate *createdAt = self.post.createdAt;
-    NSLog(@"DATE: %@", createdAt);
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
      
      //Configure the input format to parse the date string

@@ -15,6 +15,7 @@
 #import "Post.h"
 #import "PostDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
+#import "DateTools.h"
 
 @interface FeedViewController () 
 
@@ -93,7 +94,6 @@
             NSLog(@"%@", error.localizedDescription);
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Load Feed" message:@"The internet connection appears to be offline." preferredStyle:(UIAlertControllerStyleAlert)];
             
-            
             //creating cancel action
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"  style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 // doing nothing will dismiss the view
@@ -162,6 +162,8 @@
     cell.captionLabel.text = post.caption;
     cell.usernameLabel.text = post.author.username;
     
+    cell.dateLabel.text = [post.createdAt.shortTimeAgoSinceNow stringByAppendingString:@" ago"];
+    
     return cell;
 }
 
@@ -207,7 +209,6 @@
         PostDetailsViewController *detailViewController = [segue destinationViewController];
         detailViewController.post = post;
         NSLog(@"%@", post[@"createdAt"]);
-        
         
     }
 }
