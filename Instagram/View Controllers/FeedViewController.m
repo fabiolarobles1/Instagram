@@ -15,22 +15,24 @@
 #import "Post.h"
 #import "PostDetailsViewController.h"
 
-@interface FeedViewController () <UITableViewDelegate, UITableViewDataSource >
+@interface FeedViewController () 
 
 @property (strong, nonatomic) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
 @implementation FeedViewController
-
+static int skipcount = 0;
+static BOOL reachedEnd = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    self.isMoreDataLoading = NO;
     [self fetchPosts];
     
     self.refreshControl = [[UIRefreshControl alloc]init];
@@ -38,29 +40,40 @@
     [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
+
 -(void)fetchPosts{
-    
+    //NSLog(@"END: %d and refreshinf %d",reachedEnd, [self.refreshControl isRefreshing]);
     // construct query
     PFQuery *postQuery = [Post query];
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
-    [postQuery includeKey:@"createdAt"];
     postQuery.limit = 20;
+    if(self.isMoreDataLoading && reachedEnd){
+        postQuery.skip = skipcount;
+    }
+    
+   
 
     // fetch data asynchronously
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
         if (posts) {
-           
-            self.posts= [posts mutableCopy];
-                [self.tableView reloadData];
+            
+            if(self.isMoreDataLoading){
+                [self.posts addObjectsFromArray:posts];
+            }else{
+                self.posts= [posts mutableCopy];
+            }
+            self.isMoreDataLoading = NO;
+            reachedEnd = NO;
+           // [self.posts addObjectsFromArray:posts];
+
+            [self.tableView reloadData];
             [self.refreshControl endRefreshing];
             } else {
                 NSLog(@"%@", error.localizedDescription);
         }
     }];
 }
-
-
 
 
 - (IBAction)didTapLogout:(id)sender {
@@ -115,7 +128,24 @@
     return self.posts.count;
 }
 
-
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if(!self.isMoreDataLoading){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+               
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+                
+                 //  self.isMoreDataLoading = true;
+            skipcount +=20;
+            reachedEnd = YES;
+            self.isMoreDataLoading = YES;
+            [self fetchPosts];
+        }
+    }
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -133,6 +163,5 @@
     
     }
 }
-
 
 @end
