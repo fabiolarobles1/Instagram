@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "InstaPostTableViewCell.h"
 #import "Post.h"
+#import "PostDetailsViewController.h"
 
 @interface FeedViewController () <UITableViewDelegate, UITableViewDataSource >
 
@@ -43,11 +44,13 @@
     PFQuery *postQuery = [Post query];
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
+    [postQuery includeKey:@"createdAt"];
     postQuery.limit = 20;
 
     // fetch data asynchronously
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
         if (posts) {
+           
             self.posts= [posts mutableCopy];
                 [self.tableView reloadData];
             [self.refreshControl endRefreshing];
@@ -57,30 +60,6 @@
     }];
 }
 
-//-(void) beginRefresh:(UIRefreshControl *) refreshControl{
-//
-//    //Make NSURL Request
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
-//                                                                delegate:nil
-//                                                           delegateQueue:[NSOperationQueue mainQueue]];
-//          session.configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-//
-//
-//
-//   // NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//
-//             // ... Use the new data to update the data source ...
-//
-//             // Reload the tableView now that there is new data
-//              [self.tableView reloadData];
-//
-//             // Tell the refreshControl to stop spinning
-//              [refreshControl endRefreshing];
-//
-//          }];
-//      
-//          [task resume];
-//}
 
 
 
@@ -113,21 +92,16 @@
      [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    //Unselect post cell after entering details
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
     Post *post = self.posts[indexPath.row];
     
-  //[Post fetchIfNeeded];
+ 
     [cell setPost:post];
     cell.captionLabel.text = post.caption;
     cell.usernameLabel.text = post.author.username;
@@ -140,5 +114,25 @@
     
     return self.posts.count;
 }
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"toDetailsViewSegue"]){
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Post *post = self.posts[indexPath.row];
+        PostDetailsViewController *detailViewController = [segue destinationViewController];
+        detailViewController.post = post;
+        NSLog(@"%@", post[@"createdAt"]);
+        
+    
+    }
+}
+
 
 @end

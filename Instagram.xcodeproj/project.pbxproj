@@ -23,6 +23,7 @@
 		EBE40E9024B3C87E00E24C06 /* InstagramUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E8F24B3C87E00E24C06 /* InstagramUITests.m */; };
 		EBE40EA024B4044400E24C06 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40E9F24B4044400E24C06 /* SignUpViewController.m */; };
 		EBE40EA324B42C5C00E24C06 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE40EA224B42C5C00E24C06 /* FeedViewController.m */; };
+		EBFABC0824B57C0400B77C22 /* PostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBFABC0724B57C0400B77C22 /* PostDetailsViewController.m */; };
 		FC25785D62A0BE18E9367A0F /* Pods_Instagram_InstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50AF3BC6560145A4640DEE9 /* Pods_Instagram_InstagramUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,8 @@
 		EBE40E9F24B4044400E24C06 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		EBE40EA124B42C5C00E24C06 /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		EBE40EA224B42C5C00E24C06 /* FeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		EBFABC0624B57C0400B77C22 /* PostDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostDetailsViewController.h; sourceTree = "<group>"; };
+		EBFABC0724B57C0400B77C22 /* PostDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +225,8 @@
 				EBE40EA224B42C5C00E24C06 /* FeedViewController.m */,
 				EBDD308824B4FBFE002D1172 /* ComposeViewController.h */,
 				EBDD308924B4FBFE002D1172 /* ComposeViewController.m */,
+				EBFABC0624B57C0400B77C22 /* PostDetailsViewController.h */,
+				EBFABC0724B57C0400B77C22 /* PostDetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				EBDD308D24B50E7C002D1172 /* Post.m in Sources */,
 				EBE40E7B24B3C87E00E24C06 /* main.m in Sources */,
 				EBE40EA324B42C5C00E24C06 /* FeedViewController.m in Sources */,
+				EBFABC0824B57C0400B77C22 /* PostDetailsViewController.m in Sources */,
 				EBE40E6D24B3C87D00E24C06 /* SceneDelegate.m in Sources */,
 				EBDD308A24B4FBFE002D1172 /* ComposeViewController.m in Sources */,
 			);

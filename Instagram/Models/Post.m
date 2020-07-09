@@ -7,7 +7,7 @@
 //
 
 #import "Post.h"
-
+#import "DateTools.h"
 
 @implementation Post
     
@@ -31,6 +31,7 @@
     newPost.caption = caption;
     newPost.likeCount = @(0);
     newPost.commentCount = @(0);
+    
     
     [newPost saveInBackgroundWithBlock: completion];
 }
