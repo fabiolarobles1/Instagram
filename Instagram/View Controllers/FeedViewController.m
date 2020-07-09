@@ -21,10 +21,12 @@
 @property (strong, nonatomic) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) InfiniteScrollActivityView *loadingMoreView;
+
 @property (assign, nonatomic) BOOL isMoreDataLoading;
 @property (assign, nonatomic) int skipcount;
 @property (assign, nonatomic) BOOL reachedEnd;
-@property (strong, nonatomic) InfiniteScrollActivityView *loadingMoreView;
+
 @end
 
 @implementation FeedViewController
@@ -49,7 +51,7 @@
     self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
     self.loadingMoreView.hidden = true;
     [self.tableView addSubview:self.loadingMoreView];
-       
+    
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
@@ -77,16 +79,41 @@
             }else{
                 self.posts= [posts mutableCopy];
             }
+            //update flags
             self.isMoreDataLoading = NO;
             self.reachedEnd = NO;
-           // [self.posts addObjectsFromArray:posts];
-
-            [self.tableView reloadData];
+            
+            // stop indicators
             [self.refreshControl endRefreshing];
             [self.loadingMoreView stopAnimating];
             
-            } else {
-                NSLog(@"%@", error.localizedDescription);
+            [self.tableView reloadData];
+            
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Load Feed" message:@"The internet connection appears to be offline." preferredStyle:(UIAlertControllerStyleAlert)];
+            
+            
+            //creating cancel action
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"  style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                // doing nothing will dismiss the view
+            }];
+            //   adding cancel action to the alertController
+            [alert addAction:cancelAction];
+            
+            //creating OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //try to load movies again
+                [self fetchPosts];
+            }];
+            
+            //adding OK action to the alertController
+            [alert addAction:okAction];
+            
+            [self presentViewController:alert animated:YES completion:^{
+                [self.refreshControl endRefreshing];
+                [self.loadingMoreView stopAnimating];
+            }];
         }
     }];
 }
@@ -95,15 +122,15 @@
 - (IBAction)didTapLogout:(id)sender {
     
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-           if(error ==nil){
-               NSLog(@"Successfully logged out user.");
-           }
-           else{
-               NSLog(@"Error loggin out user.");
-           }
-       }];
+        if(error ==nil){
+            NSLog(@"Successfully logged out user.");
+        }
+        else{
+            NSLog(@"Error loggin out user.");
+        }
+    }];
     
-   // AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    // AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -118,7 +145,7 @@
 
 
 - (IBAction)didTapCompose:(id)sender {
-     [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
+    [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
@@ -130,7 +157,7 @@
     InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
     Post *post = self.posts[indexPath.row];
     
- 
+    
     [cell setPost:post];
     cell.captionLabel.text = post.caption;
     cell.usernameLabel.text = post.author.username;
@@ -150,13 +177,13 @@
         // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-               
+        
         // When the user has scrolled past the threshold, start requesting
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
             self.skipcount +=20;
             self.reachedEnd = YES;
             self.isMoreDataLoading = YES;
-
+            
             // Update position of loadingMoreView, and start loading indicator
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
@@ -181,7 +208,7 @@
         detailViewController.post = post;
         NSLog(@"%@", post[@"createdAt"]);
         
-    
+        
     }
 }
 
