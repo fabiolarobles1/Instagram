@@ -468,6 +468,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="captionField" destination="UPj-fH-hkk" id="FwE-4R-dwI"/>
+                        <outlet property="postButton" destination="qz7-dN-mKs" id="ULc-yg-jHm"/>
                         <outlet property="postImageView" destination="uBC-8P-mDn" id="b01-3c-Vjf"/>
                     </connections>
                 </viewController>
@@ -612,7 +613,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5Il-dF-KLw"/>
+        <segue reference="VL2-iP-o4J"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="feed_tab" width="25" height="25"/>

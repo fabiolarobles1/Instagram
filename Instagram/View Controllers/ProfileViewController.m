@@ -41,7 +41,6 @@
     self.tableView.allowsSelection = YES;
     self.isMoreDataLoading = NO;
     [self fetchPosts];
-    
 }
 
 
@@ -51,7 +50,8 @@
     PFQuery *postQuery = [Post query];
     [postQuery whereKey:@"author" equalTo:[PFUser currentUser]];
     [postQuery includeKey:@"author"];
-   
+    [postQuery orderByDescending:@"createdAt"];
+    
     postQuery.limit = 20;
     if(self.isMoreDataLoading ){
         postQuery.skip = self.skipcount;
@@ -110,37 +110,29 @@
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-     
+    
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     [cell addSubview: cell.postView];
     Post *post = self.posts[indexPath.row];
     [cell.postView setPost:post];
-
+    
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"Number of posts: %ld", self.posts.count);
     return self.posts.count;
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView{
     [super scrollViewDidScroll:scrollView];
 }
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([[segue identifier] isEqualToString:@"toDetailsViewSegue"]){
-        UITableViewCell *tappedCell = sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        Post *post = self.posts[indexPath.row];
-        PostDetailsViewController *detailViewController = [segue destinationViewController];
-        detailViewController.post = post;
-        
-    }
+    [super prepareForSegue:segue sender:sender];
+    
 }
- 
+
 @end
