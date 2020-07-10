@@ -1,36 +1,73 @@
 //
-//  FeedViewController.m
+//  ProfileViewController.m
 //  Instagram
 //
-//  Created by Fabiola E. Robles Vega on 7/7/20.
+//  Created by Fabiola E. Robles Vega on 7/9/20.
 //  Copyright © 2020 Fabiola E. Robles Vega. All rights reserved.
 //
 
+#import "ProfileViewController.h"
 #import "FeedViewController.h"
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
-#import "InstaPostTableViewCell.h"
+#import "PostCell.h"
+#import "PostView.h"
 #import "Post.h"
 #import "PostDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
 #import "DateTools.h"
 
-@interface FeedViewController () 
 
-@property (strong, nonatomic) NSMutableArray *posts;
+@interface ProfileViewController  () <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *posts;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (assign, nonatomic) int skipcount;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) InfiniteScrollActivityView *loadingMoreView;
 
-@property (assign, nonatomic) BOOL isMoreDataLoading;
-@property (assign, nonatomic) int skipcount;
-
 @end
 
-@implementation FeedViewController
+@implementation ProfileViewController
 
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//
+//
+//    // Do any additional setup after loading the view.
+//}
+//
+//-(void) fetchPosts{
+//    PFQuery *postQuery = [Post query];
+//    [postQuery orderByDescending:@"createdAt"];
+//    [postQuery includeKey:@"author"];
+//    postQuery.limit = 20;
+//
+//
+//    // fetch data asynchronously
+//    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+//        if (posts) {
+//    [super fetchPosts];
+//}
+//
+//- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//   return [super tableView:self.tableView numberOfRowsInSection:self.posts.count];
+//}
+//
+//- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    return [super tableView:self.tableView cellForRowAtIndexPath:indexPath];
+//}
+///*
+//#pragma mark - Navigation
+//
+//// In a storyboard-based application, you will often want to do a little preparation before navigation
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//}
+//*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -40,30 +77,16 @@
     self.isMoreDataLoading = NO;
     [self fetchPosts];
     
-    //setting up refresh control
-    self.refreshControl = [[UIRefreshControl alloc]init];
-    [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:self.refreshControl atIndex:0];
-    
-    // Set up Infinite Scroll loading indicator
-    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-    self.loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
-    self.loadingMoreView.hidden = true;
-    [self.tableView addSubview:self.loadingMoreView];
-    
-    UIEdgeInsets insets = self.tableView.contentInset;
-    insets.bottom += InfiniteScrollActivityView.defaultHeight;
-    self.tableView.contentInset = insets;
-    
 }
 
 
 -(void)fetchPosts{
-    //NSLog(@"END: %d and refreshinf %d",reachedEnd, [self.refreshControl isRefreshing]);
+    
     // construct query
     PFQuery *postQuery = [Post query];
-    [postQuery orderByDescending:@"createdAt"];
+    [postQuery whereKey:@"author" equalTo:[PFUser currentUser]];
     [postQuery includeKey:@"author"];
+   
     postQuery.limit = 20;
     if(self.isMoreDataLoading ){
         postQuery.skip = self.skipcount;
@@ -116,53 +139,19 @@
 }
 
 
-- (IBAction)didTapLogout:(id)sender {
-    
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        if(error ==nil){
-            NSLog(@"Successfully logged out user.");
-        }
-        else{
-            NSLog(@"Error loggin out user.");
-        }
-    }];
-    
-    // AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    myDelegate.window.alpha = 0.50;
-    myDelegate.window.rootViewController = loginViewController;
-    
-    [UIView animateWithDuration:2 animations:^{
-        myDelegate.window.alpha = 1;
-    }];
-}
-
-
-- (IBAction)didTapCompose:(id)sender {
-    [self performSegueWithIdentifier:@"toComposeSegue" sender:nil];
-}
-
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     //Unselect post cell after entering details
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
+     
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     Post *post = self.posts[indexPath.row];
+    [cell.postView setPost:post];
+    NSLog (@"PROFILE CELL %@", cell);
     
-    
-    [cell setPost:post];
-    cell.captionLabel.text = post.caption;
-    cell.usernameLabel.text = post.author.username;
-    
-    cell.dateLabel.text = [post.createdAt.shortTimeAgoSinceNow stringByAppendingString:@" ago"];
-    
-    NSLog (@"FEED CELL %@", cell);
-    
+   
     return cell;
 }
 
@@ -173,29 +162,10 @@
 }
 
 -(void) scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if(!self.isMoreDataLoading){
-        // Calculate the position of one screen length before the bottom of the results
-        int scrollViewContentHeight = self.tableView.contentSize.height;
-        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
-        // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            self.skipcount +=20;
-            self.isMoreDataLoading = YES;
-            
-            // Update position of loadingMoreView, and start loading indicator
-            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-            self.loadingMoreView.frame = frame;
-            [self.loadingMoreView startAnimating];
-            
-            //load more results
-            [self fetchPosts];
-        }
-    }
+    [super scrollViewDidScroll:scrollView];
 }
 #pragma mark - Navigation
-
+/*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -210,5 +180,5 @@
         
     }
 }
-
+ */
 @end
