@@ -56,7 +56,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1n-0k-pkY">
-                                <rect key="frame" x="115.5" y="288" width="183.5" height="74"/>
+                                <rect key="frame" x="115.5" y="288" width="184" height="74"/>
                                 <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="60"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
