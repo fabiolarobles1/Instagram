@@ -32,48 +32,13 @@
 
 @implementation ProfileViewController
 
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//
-//
-//    // Do any additional setup after loading the view.
-//}
-//
-//-(void) fetchPosts{
-//    PFQuery *postQuery = [Post query];
-//    [postQuery orderByDescending:@"createdAt"];
-//    [postQuery includeKey:@"author"];
-//    postQuery.limit = 20;
-//
-//
-//    // fetch data asynchronously
-//    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
-//        if (posts) {
-//    [super fetchPosts];
-//}
-//
-//- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//   return [super tableView:self.tableView numberOfRowsInSection:self.posts.count];
-//}
-//
-//- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    return [super tableView:self.tableView cellForRowAtIndexPath:indexPath];
-//}
-///*
-//#pragma mark - Navigation
-//
-//// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//}
-//*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.skipcount = 0;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.allowsSelection = YES;
     self.isMoreDataLoading = NO;
     [self fetchPosts];
     
@@ -147,17 +112,15 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
      
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
+    [cell addSubview: cell.postView];
     Post *post = self.posts[indexPath.row];
     [cell.postView setPost:post];
-    NSLog (@"PROFILE CELL %@", cell);
-    
-   
+
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSLog(@"Number of posts: %ld", self.posts.count);
-    
     return self.posts.count;
 }
 
@@ -165,7 +128,7 @@
     [super scrollViewDidScroll:scrollView];
 }
 #pragma mark - Navigation
-/*
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -176,9 +139,8 @@
         Post *post = self.posts[indexPath.row];
         PostDetailsViewController *detailViewController = [segue destinationViewController];
         detailViewController.post = post;
-        NSLog(@"%@", post[@"createdAt"]);
         
     }
 }
- */
+ 
 @end

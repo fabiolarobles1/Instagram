@@ -8,6 +8,7 @@
 
 #import "PostView.h"
 #import "Post.h"
+#import "DateTools.h"
 @import Parse;
 
 @interface PostView ()
@@ -59,33 +60,33 @@
     _post = post;
     
     
-       
-       self.usernameLabel.text = post.author.username;
-       
-       self.postImageView.file = post[@"image"];
-       [self.postImageView loadInBackground];
-       
-       NSDate *createdAt = post.createdAt;
-       
-           NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-       
-            //Configure the input format to parse the date string
-             // formatter.dateFormat = @"E MM d HH:mm Z y";
-       
-            formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
-       
-            //Convert string to date
-      
-       
-            //configure output format
-            formatter.dateStyle = NSDateFormatterShortStyle;
-            formatter.timeStyle = NSDateFormatterShortStyle;
-       
-           self.dateLabel.text = [formatter stringFromDate:createdAt];
-      // self.dateLabel.text= @"DATE";
-       self.captionLabel.text = post.caption;
-      // self.captionLabel.text = @"CAPTION";
-       
+    
+    self.usernameLabel.text = post.author.username;
+    
+    self.postImageView.file = post[@"image"];
+    [self.postImageView loadInBackground];
+    
+    NSDate *createdAt = post.createdAt;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    
+    //Configure the input format to parse the date string
+    // formatter.dateFormat = @"E MM d HH:mm Z y";
+    
+    formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
+    
+    //Convert string to date
+    
+    
+    //configure output format
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    self.dateLabel.text = [createdAt.shortTimeAgoSinceNow stringByAppendingString:@" ago"];
+    //self.dateLabel.text = [formatter stringFromDate:createdAt];
+    
+    self.captionLabel.text = post.caption;
+    
+    
 }
 
 

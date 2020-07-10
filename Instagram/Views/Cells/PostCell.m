@@ -13,7 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self setHidden:NO];
 }
 
 

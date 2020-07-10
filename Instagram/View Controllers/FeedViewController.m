@@ -127,7 +127,6 @@
         }
     }];
     
-    // AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -154,14 +153,10 @@
     InstaPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InstaPostCell" ];
     Post *post = self.posts[indexPath.row];
     
-    
     [cell setPost:post];
     cell.captionLabel.text = post.caption;
     cell.usernameLabel.text = post.author.username;
-    
     cell.dateLabel.text = [post.createdAt.shortTimeAgoSinceNow stringByAppendingString:@" ago"];
-    
-    NSLog (@"FEED CELL %@", cell);
     
     return cell;
 }

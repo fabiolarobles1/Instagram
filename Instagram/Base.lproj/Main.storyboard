@@ -399,15 +399,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="60o-zM-1rG" customClass="PostView">
-                                <rect key="frame" x="20" y="98" width="374" height="700"/>
+                                <rect key="frame" x="0.0" y="98" width="414" height="700"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="60o-zM-1rG" firstAttribute="leading" secondItem="GkA-No-vVT" secondAttribute="leadingMargin" id="DqL-TV-Pxq"/>
+                            <constraint firstAttribute="trailing" secondItem="60o-zM-1rG" secondAttribute="trailing" id="HhD-64-2Oe"/>
+                            <constraint firstItem="60o-zM-1rG" firstAttribute="leading" secondItem="GkA-No-vVT" secondAttribute="leading" id="K3S-I0-XFS"/>
                             <constraint firstItem="60o-zM-1rG" firstAttribute="top" secondItem="deE-pV-QNO" secondAttribute="top" constant="10" id="NOC-6S-gln"/>
                             <constraint firstItem="60o-zM-1rG" firstAttribute="centerX" secondItem="GkA-No-vVT" secondAttribute="centerX" id="Qhd-vK-ikr"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="60o-zM-1rG" secondAttribute="trailing" id="nKR-YF-B74"/>
                             <constraint firstItem="60o-zM-1rG" firstAttribute="centerY" secondItem="GkA-No-vVT" secondAttribute="centerY" id="tJq-K7-RVN"/>
                             <constraint firstItem="deE-pV-QNO" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="60o-zM-1rG" secondAttribute="bottom" constant="5" id="urx-n7-0di"/>
                         </constraints>
@@ -501,32 +501,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jxb-yE-bKV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="525" estimatedRowHeight="500" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jxb-yE-bKV">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="400" id="ro7-9C-azq" customClass="PostCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="400"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="3Yr-Cv-PU1" customClass="PostCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="525"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ro7-9C-azq" id="Vhy-QQ-KXO" customClass="PostView">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Yr-Cv-PU1" id="R5Q-WY-f2V">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="525"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" restorationIdentifier="PostView" translatesAutoresizingMaskIntoConstraints="NO" id="TWZ-xL-QFz" customClass="PostView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
-                                                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jP5-pH-1qK" customClass="PostView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="575"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="414" id="025-dw-bLH"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="414" id="Cfl-Oh-i1o"/>
+                                                        <constraint firstAttribute="height" constant="575" id="avA-at-RkE"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="575" id="pQD-lK-o6X"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="TWZ-xL-QFz" secondAttribute="trailing" id="5jH-cI-M19"/>
-                                                <constraint firstItem="TWZ-xL-QFz" firstAttribute="leading" secondItem="Vhy-QQ-KXO" secondAttribute="leading" id="AUj-eh-qp1"/>
-                                                <constraint firstItem="TWZ-xL-QFz" firstAttribute="top" secondItem="Vhy-QQ-KXO" secondAttribute="top" id="LfQ-JO-zCR"/>
-                                                <constraint firstAttribute="bottom" secondItem="TWZ-xL-QFz" secondAttribute="bottom" id="c0E-aM-56X"/>
+                                                <constraint firstItem="jP5-pH-1qK" firstAttribute="leading" secondItem="R5Q-WY-f2V" secondAttribute="leading" id="Y2R-uQ-Yba"/>
+                                                <constraint firstItem="jP5-pH-1qK" firstAttribute="top" secondItem="R5Q-WY-f2V" secondAttribute="top" id="vCX-Of-Akz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="postView" destination="TWZ-xL-QFz" id="u1t-Ut-RMn"/>
+                                            <outlet property="postView" destination="jP5-pH-1qK" id="SXj-P4-NGT"/>
+                                            <segue destination="yL7-Pr-6Pf" kind="show" identifier="toDetailsViewSegue" id="5Il-dF-KLw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -607,6 +611,9 @@
             <point key="canvasLocation" x="2262" y="1482"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="5Il-dF-KLw"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="feed_tab" width="25" height="25"/>
         <image name="image_placeholder" width="375" height="375"/>
