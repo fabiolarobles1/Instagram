@@ -65,7 +65,7 @@
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
     postQuery.limit = 20;
-    if(self.isMoreDataLoading ){
+    if(self.isMoreDataLoading && self.posts.count>self.skipcount ){
         postQuery.skip = self.skipcount;
     }
     
@@ -185,7 +185,12 @@
             [self.loadingMoreView startAnimating];
             
             //load more results
-            [self fetchPosts];
+            if (self.posts.count>self.skipcount){
+                [self fetchPosts];
+            }else{
+                [self.loadingMoreView stopAnimating];
+                self.isMoreDataLoading = NO;
+            }
         }
     }
 }
