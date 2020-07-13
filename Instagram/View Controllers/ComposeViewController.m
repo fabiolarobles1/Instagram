@@ -80,7 +80,6 @@
     [self toFeed];
 }
 
-
 //to avoid multiple post of same picture
 -(IBAction)disablePostButton{
     self.postButton.enabled = !self.postButton.enabled;

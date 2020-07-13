@@ -59,8 +59,6 @@
 -(void)setPost:(Post *)post{
     _post = post;
     
-    
-    
     self.usernameLabel.text = post.author.username;
     
     self.postImageView.file = post[@"image"];
