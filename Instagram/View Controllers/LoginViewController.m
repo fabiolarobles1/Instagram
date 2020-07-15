@@ -31,19 +31,20 @@
      [self.view endEditing:YES];
 }
 
+
 - (IBAction)didTapLoginButton:(id)sender {
     if (!self.usernameField.hasText || !self.passwordField.hasText ){
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Required Fields" message:@"Username and password are required to login. Please fill out all the information." preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { }];
         [alert addAction:okAction];
-        
         [self presentViewController:alert animated:YES completion:^{ }];
         
     }else{
         [self loginUser];
     }
 }
+
 
 -(void) loginUser{
     NSString *username = self.usernameField.text;

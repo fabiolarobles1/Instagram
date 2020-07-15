@@ -59,13 +59,12 @@
 
 
 -(void)fetchPosts{
-    //NSLog(@"END: %d and refreshinf %d",reachedEnd, [self.refreshControl isRefreshing]);
     // construct query
     PFQuery *postQuery = [Post query];
     [postQuery orderByDescending:@"createdAt"];
     [postQuery includeKey:@"author"];
     postQuery.limit = 20;
-    if(self.isMoreDataLoading && self.posts.count>self.skipcount ){
+    if(self.isMoreDataLoading){
         postQuery.skip = self.skipcount;
     }
     
@@ -100,7 +99,7 @@
             
             //creating OK action
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //try to load movies again
+                //try to load post again
                 [self fetchPosts];
             }];
             
@@ -185,7 +184,8 @@
             [self.loadingMoreView startAnimating];
             
             //load more results
-            if (self.posts.count>self.skipcount){
+            if (self.posts.count>=self.skipcount){
+                NSLog(@"MORE");
                 [self fetchPosts];
             }else{
                 [self.loadingMoreView stopAnimating];

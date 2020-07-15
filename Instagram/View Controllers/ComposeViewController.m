@@ -113,8 +113,7 @@
     
     [UIView animateWithDuration:1 animations:^{
         myDelegate.window.alpha = 1;
-    }];
-    
+    }];    
 }
 
 /*
