@@ -207,7 +207,6 @@
         PostDetailsViewController *detailViewController = [segue destinationViewController];
         detailViewController.post = post;
         NSLog(@"%@", post[@"createdAt"]);
-        
     }
 }
 
